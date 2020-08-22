@@ -14539,6 +14539,9 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('login', function () {
   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/LoginForm.vue */ "./resources/assets/js/components/LoginForm.vue"));
 });
+Vue.component('users-list', function () {
+  return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./components/List.vue */ "./resources/assets/js/components/List.vue"));
+});
 
 /***/ }),
 
