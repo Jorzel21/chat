@@ -2,17 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\Invite;
+use App\Models\ClienteUser;
 
 class UserClienteRepository{   
 
     public function store($request){
         
-        $invite = Invite::create($request);
-        $invite->save();
-        
-        return $invite->id;
-        
+        $clienteUser = ClienteUser::create($request);
+        $clienteUser->save();
+                
     }
   
 }

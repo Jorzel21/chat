@@ -25,4 +25,3 @@ class Cliente extends Model
     }
 }
 
-}

@@ -7,9 +7,11 @@ use App\Models\Invite;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\InviteRepository;
+use App\Repositories\UserClienteRepository;
+use App\Http\Services\RegisterService;
 
 class RegisterController extends Controller
 {
@@ -38,10 +40,11 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct(InviteRepository $inviteRepository)
+    public function __construct(RegisterService $registerService)
     {
         $this->middleware('guest');
-        $this->inviteRepository = $inviteRepository;
+        $this->registerService = $registerService;
+        
     }
 
     public function showRegistrationForm()
@@ -57,7 +60,14 @@ class RegisterController extends Controller
     
     public function formRegistrarion($id)
     {
-        return view('auth.register', compact('id'));        
+        try{
+            $this->registerService->verficarStatus($id);
+            return view('auth.register', compact('id'));        
+        }catch(\Exception $e){            
+            flash("erro")->error();
+            return redirect()->route('login');
+        }
+        
     }
 
     /**
@@ -83,14 +93,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {   
-        $this->inviteRepository->updateStatus($data['id']);
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-     
-        
-        return $user;
+        try{
+            $cliente_id = $this->registerService->updateStatusInvite($data['id']);
+
+            $user       = $this->registerService->storeUser($data);
+    
+            $this->registerService->storeUserCliente([
+                'user_id' => $user->id,
+                'cliente_id' => $cliente_id
+            ]);
+
+            flash('Usuario cadatrado com sucesso.')->success();
+            return $user;
+            
+        }catch(\Exception $e){
+            flash($e->getMessage())->error();
+            return redirect()->back();
+        }
     }
 }
