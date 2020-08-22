@@ -2,13 +2,20 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Traits\UuidTrait;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Cliente;
 
 class User extends Authenticatable
 {
+    use UuidTrait;
+    use SoftDeletes;
     use Notifiable;
+
+    protected $table = 'users';
+    
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'id', 'name', 'email', 'password',
     ];
 
     /**
@@ -36,4 +43,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function cliente(){
+        return $this->belongsToMany(Cliente::class, 'cliente_user');
+    }
 }

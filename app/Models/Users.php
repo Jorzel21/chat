@@ -3,32 +3,43 @@
 namespace App\Models;
 
 use App\Traits\UuidTrait;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laracodes\Presenter\Traits\Presentable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Oferta extends Model
+class User11 extends Authenticatable
 {
     use UuidTrait;
     use SoftDeletes;
+    use Notifiable;
 
-    public $incrementing = false;
-    protected $presenter = 'App\Presenters\OfertaPresenter';
+    protected $table = 'users';
+    
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
 
-    public function licenciado()
-    {
-        return $this->belongsTo(Licenciado::class);
-    }
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
-    public function comerciante()
-    {
-        return $this->belongsTo(Comerciante::class);
-    }
-
-    public function produto()
-    {
-        return $this->belongsTo(Produto::class);
-    }
-
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }
