@@ -1,14 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Departamentos extends Model
+class Cliente extends Model
 {
     use UuidTrait;
     use SoftDeletes;
+
+    protected $table = 'clientes';
+
+    protected $fillable =
+    [
+        'nome',
+    ];
 
 }

@@ -6,8 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Clientes extends Model
+class Canal extends Model
 {
     use UuidTrait;
     use SoftDeletes;
+
+    protected $table = 'canais';
+
+    protected $fillable =
+    [
+        'nome',
+        'cliente_id',
+        'status'
+    ];
+
 }
