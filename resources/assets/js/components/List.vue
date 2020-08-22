@@ -1,8 +1,8 @@
 <template>
-  <q-pull-to-refresh @refresh="refresh">
+  <q-pull-to-refresh @refresh="$emit('reload')">
     <q-table
       :columns="columns"
-      :data="usersList"
+      :data="list"
       :filter="filter"
       :dense="$q.screen.lt.md"
       :grid="$q.screen.lt.md"
@@ -15,7 +15,7 @@
     >
       <template v-slot:top>
         <div class="full-width row">
-          <q-btn to="/home" class="on-left" flat round dense icon="fas fa-arrow-left">
+          <q-btn class="on-left" flat round dense icon="fas fa-arrow-left">
             <q-tooltip>Voltar</q-tooltip>
           </q-btn>
           <div v-if="!search" class="text-h6 col-grow">Usuários</div>
@@ -44,14 +44,14 @@
             <q-btn @click="search=true" flat round dense icon="fas fa-search">
               <q-tooltip>Pesquisar</q-tooltip>
             </q-btn>
-            <q-btn v-if="!$q.platform.is.mobile" @click="loadUsers" flat round dense icon="fas fa-redo-alt" class="on-right">
+            <q-btn v-if="!$q.platform.is.mobile" @click="$emit('reload')" flat round dense icon="fas fa-redo-alt" class="on-right">
               <q-tooltip>Recarregar</q-tooltip>
             </q-btn>
-            <q-btn @click="exportTable('usuarios')" flat round dense icon="fas fa-download" class="on-right">
+            <q-btn @click="exportTable('lista')" flat round dense icon="fas fa-download" class="on-right">
               <q-tooltip>Baixar dados</q-tooltip>
             </q-btn>
             <q-btn @click="$emit('new')" flat round dense icon="fas fa-user-plus" class="on-right">
-              <q-tooltip>Novo usuário</q-tooltip>
+              <q-tooltip>Novo</q-tooltip>
             </q-btn>
           </div>
         </div>
@@ -79,14 +79,14 @@
             {{ col.value }}
           </q-td>
           <q-td auto-width>
-            <q-btn @click="$emit('change_password', { ...props.row })" flat round dense color="warning" icon="fas fa-key">
+<!--             <q-btn @click="$emit('change-password', { ...props.row })" flat round dense color="warning" icon="fas fa-key">
               <q-tooltip>Alterar Senha</q-tooltip>
-            </q-btn>
+            </q-btn> -->
             <q-btn @click="$emit('edit', { ...props.row })" flat round dense color="accent" icon="fas fa-user-edit" class="q-mx-sm">
-              <q-tooltip>Editar Usuário</q-tooltip>
+              <q-tooltip>Editar</q-tooltip>
             </q-btn>
             <q-btn @click="$emit('remove', { ...props.row })" flat round dense color="negative" icon="fas fa-user-minus">
-              <q-tooltip>Remover Usuário</q-tooltip>
+              <q-tooltip>Remover</q-tooltip>
             </q-btn>
           </q-td>
         </q-tr>
@@ -103,14 +103,14 @@
               </q-item-section>
             </q-item>
             <q-card-actions vertical class="q-ml-auto justify-between">
-              <q-btn @click="$emit('change_password', { ...row })" flat round dense color="warning" icon="fas fa-key">
+              <!-- <q-btn @click="$emit('change-password', { ...row })" flat round dense color="warning" icon="fas fa-key">
                 <q-tooltip>Alterar Senha</q-tooltip>
-              </q-btn>
+              </q-btn> -->
               <q-btn @click="$emit('edit', { ...row })" flat round dense color="accent" icon="fas fa-user-edit">
-                <q-tooltip>Editar Usuário</q-tooltip>
+                <q-tooltip>Editar</q-tooltip>
               </q-btn>
               <q-btn @click="$emit('remove', { ...row })" flat round dense color="negative" icon="fas fa-user-minus">
-                <q-tooltip>Remover Usuário</q-tooltip>
+                <q-tooltip>Remover</q-tooltip>
               </q-btn>
             </q-card-actions>
           </q-card-section>
@@ -142,14 +142,17 @@ function wrapCsvValue (val, formatFn) {
 }
 
 export default {
-  name: 'UsersList',
+  name: 'List',
 
   props: {
-      users: [],
+    list: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
   },
-
   data: () => ({
-    loading: true,
     filter: '',
     search: false
   }),
@@ -158,26 +161,14 @@ export default {
       return [
         { name: 'fullName', required: true, label: 'Nome', align: 'left', field: 'fullName', sortable: true },
       ]
-    },
-    usersList() {
-      return this.users
     }
   },
 
   methods: {
-    async refresh(done) {
-      await this.loadUsers()
-      done()
-    },
-    async loadUsers() {
-      this.loading = true
-      await this.$store.dispatch('users/list')
-      this.loading = false
-    },
     exportTable(fileName) {
       // naive encoding to csv format
       const content = [ this.columns.map(col => wrapCsvValue(col.label)).join(',') ].concat(
-        this.usersList.map(row => this.columns.map(col => wrapCsvValue(
+        this.list.map(row => this.columns.map(col => wrapCsvValue(
           typeof col.field === 'function'
             ? col.field(row)
             : row[col.field === void 0 ? col.name : col.field],
@@ -185,7 +176,7 @@ export default {
         )).join(','))
       ).join('\r\n')
 
-      const status = exportFile(
+      const status = Quasar.utils.exportFile(
         `${fileName}-export-${Date.now()}.csv`,
         content,
         'text/csv;charset=utf-8'

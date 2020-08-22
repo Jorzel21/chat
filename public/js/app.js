@@ -14537,10 +14537,10 @@ __webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 Vue.component('login', function () {
-  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/LoginForm.vue */ "./resources/assets/js/components/LoginForm.vue"));
+  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./components/LoginForm.vue */ "./resources/assets/js/components/LoginForm.vue"));
 });
-Vue.component('users-list', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./components/List.vue */ "./resources/assets/js/components/List.vue"));
+Vue.component('list', function () {
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./components/List.vue */ "./resources/assets/js/components/List.vue"));
 });
 
 /***/ }),
@@ -14608,8 +14608,8 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/developer/Repo/chat/resources/assets/js/app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /home/developer/Repo/chat/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! /var/www/chat/resources/assets/js/app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/chat/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })

@@ -31,6 +31,11 @@
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/quasar@1.12.13/dist/quasar.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.13.1/dist/lang/pt-br.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.13.1/dist/icon-set/fontawesome-v5.umd.min.js"></script>
+  <script>
+    Quasar.lang.set(Quasar.lang.ptBr)
+  </script>
   @yield('script')
 </body>
 </html>

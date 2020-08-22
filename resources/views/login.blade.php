@@ -8,7 +8,7 @@
             <img src="{{ asset('img/LOGO.png') }}" style="height: 3vw; width: auto"/>
             <login route={{ route('login') }}></login>
 
-            <users-list :users="[ {fullName: 'Igor'}, {fullName: 'Igor'}, {fullName: 'Igor'} ]"></users-list>
+            <!-- <list @change-password="event('change', $event)" @edit="event('edit', $event)" @remove="event('remove', $event)" :list="[ {fullName: 'Igor'}, {fullName: 'Arthur'}, {fullName: 'Israel'} ]"></list> -->
         </q-card-section>
       </q-card>
 		</div>
@@ -26,8 +26,9 @@
         }
       },
       methods: {
-        launch: function (url) {
-          Quasar.utils.openURL(url)
+        event: function (ev) {
+          // Quasar.utils.openURL(url)
+          console.log(ev)
         }
       }
     })
