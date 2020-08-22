@@ -14536,17 +14536,8 @@ module.exports = g;
 __webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('component1', function () {
-  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/ExampleComponent1.vue */ "./resources/assets/js/components/ExampleComponent1.vue"));
-});
-Vue.component('component2', function () {
-  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./components/ExampleComponent2.vue */ "./resources/assets/js/components/ExampleComponent2.vue"));
-});
-Vue.component('component3', function () {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/ExampleComponent3.vue */ "./resources/assets/js/components/ExampleComponent3.vue"));
-});
 Vue.component('login', function () {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./components/LoginCard.vue */ "./resources/assets/js/components/LoginCard.vue"));
+  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/LoginForm.vue */ "./resources/assets/js/components/LoginForm.vue"));
 });
 
 /***/ }),

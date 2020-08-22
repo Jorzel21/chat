@@ -6,11 +6,11 @@
       <q-card class="my-card">
         <q-card-section>
             <img src="{{ asset('img/LOGO.png') }}" style="height: 3vw; width: auto"/>
-            <login></login>
+            <login route={{ route('login') }}></login>
         </q-card-section>
       </q-card>
 		</div>
-		
+
 	</q-page>
 @endsection
 

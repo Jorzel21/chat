@@ -3,7 +3,6 @@
 
     <q-form
       @submit="onSubmit"
-      @reset="onReset"
       class="q-gutter-md"
     >
       <q-input
@@ -27,8 +26,10 @@
 
       <div>
         <q-btn label="Entrar" class="full-width" type="submit" color="primary"/>
-        <a>Cadastre-se</a>
+
       </div>
+
+      <a href="#">Cadastre-se</a>
     </q-form>
 
   </div>
@@ -40,36 +41,7 @@
       return {
         name: null,
         age: null,
-
-        accept: false
       }
     },
-
-    methods: {
-      onSubmit () {
-        if (this.accept !== true) {
-          this.$q.notify({
-            color: 'red-5',
-            textColor: 'white',
-            icon: 'warning',
-            message: 'You need to accept the license and terms first'
-          })
-        }
-        else {
-          this.$q.notify({
-            color: 'green-4',
-            textColor: 'white',
-            icon: 'cloud_done',
-            message: 'Submitted'
-          })
-        }
-      },
-
-      onReset () {
-        this.name = null
-        this.age = null
-        this.accept = false
-      }
-    }
   }
 </script>
