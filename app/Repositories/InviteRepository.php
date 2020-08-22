@@ -18,9 +18,27 @@ class InviteRepository{
     public function updateStatus($id){
         
         $invite = Invite::find($id);
+        if($invite->status){
+            return "Token já utiliado";
+        }else{         
+            $invite->status = true;
+            $invite->save();  
+
+            return $invite->cliente_id;
+        }
         
-        $invite->status = true;
-        $invite->save();
+        
+    }
+
+    public function verificaStatus($id){
+        
+        $invite = Invite::find($id);
+        if($invite->status){
+            return true;
+        }else{         
+            return false;
+        }
+        
         
     }
   
