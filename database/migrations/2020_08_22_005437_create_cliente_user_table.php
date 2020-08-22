@@ -15,7 +15,8 @@ class CreateClienteUserTable extends Migration
     {
         Schema::create('cliente_user', function (Blueprint $table) {
             $table->string('user_id');
-            $table->string('cliente_id');           
+            $table->string('cliente_id');     
+            $table->string('nivel');
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('cliente_id')->references('id')->on('clientes');

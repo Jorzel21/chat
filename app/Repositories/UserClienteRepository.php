@@ -2,17 +2,27 @@
 
 namespace App\Repositories;
 
-use App\Models\Invite;
+use App\Models\ClienteUser;
 
 class UserClienteRepository{   
 
     public function store($request){
         
-        $invite = Invite::create($request);
-        $invite->save();
+        $clienteUser = new ClienteUser();
         
-        return $invite->id;
+        $clienteUser->user_id = $request['user_id'];
+        $clienteUser->cliente_id = $request['cliente_id'];
+        $clienteUser->nivel = $request['nivel'];        
         
+        $clienteUser->save();
+        
+        return $clienteUser;
+        
+    }
+
+    public function getNivel($id){
+        $nivel = ClienteUser::select('nivel')->where('user_id', '=', $id)->get();
+        return $nivel;
     }
   
 }

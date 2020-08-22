@@ -13,15 +13,14 @@ class InviteRepository{
         
         return $invite->id;
         
-    }
+    }  
 
-    public function updateStatus($id){
+    public function find($id){
         
         $invite = Invite::find($id);
+           
+        return $invite;
         
-        $invite->status = true;
-        $invite->save();
-        
-    }
+    } 
   
 }
