@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Canais extends Model
+class Invite extends Model
 {
     use UuidTrait;
-    use SoftDeletes;
+
+    protected $fillable = [
+        'email', 'cliente_id', 'nivel'
+    ];
 }
