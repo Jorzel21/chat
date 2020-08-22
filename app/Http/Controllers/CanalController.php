@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\ClienteService;
+use App\Http\Services\CanalService;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class CanalController extends Controller
 {
 
-    protected $clienteService;
+    protected $canalService;
 
     public function __construct (){
 
-        $this->clienteService = new ClienteService();
+        $this->canalService = new CanalService();
 
     }
 
@@ -28,7 +28,7 @@ class ClienteController extends Controller
 
         try {
 
-            $result['data'] = $this->clienteService->getAllClientes();
+            $result['data'] = $this->canalService->getAllCanais();
 
         }catch(\Exception $e){
 
@@ -67,9 +67,10 @@ class ClienteController extends Controller
 
         try {
 
-            $result['data'] = $this->clienteService->saveClienteData($data);
+            $result['data'] = $this->canalService->saveCanalData($data);
 
-        }catch(\Exception $e){
+        }
+        catch(\Exception $e){
 
             $result =
                 [

@@ -6,23 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cliente extends Model
+class Canal extends Model
 {
     use UuidTrait;
     use SoftDeletes;
 
-    protected $table = 'clientes';
+    protected $table = 'canais';
 
     protected $fillable =
     [
         'nome',
+        'cliente_id',
+        'status'
     ];
-
-
-    public function usuarios()
-    {
-        return $this->belongsToMany(User::class, 'cliente_user');
-    }
-}
 
 }

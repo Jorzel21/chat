@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\ClienteService;
+use App\Http\Services\DepartamentoService;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class DepartamentoController extends Controller
 {
 
-    protected $clienteService;
+    protected $departamentoService;
 
     public function __construct (){
 
-        $this->clienteService = new ClienteService();
+        $this->departamentoService = new DepartamentoService();
 
     }
 
@@ -28,7 +28,7 @@ class ClienteController extends Controller
 
         try {
 
-            $result['data'] = $this->clienteService->getAllClientes();
+            $result['data'] = $this->departamentoService->getAllDepartamentos();
 
         }catch(\Exception $e){
 
@@ -67,9 +67,10 @@ class ClienteController extends Controller
 
         try {
 
-            $result['data'] = $this->clienteService->saveClienteData($data);
+            $result['data'] = $this->departamentoService->saveDepartamentoData($data);
 
-        }catch(\Exception $e){
+        }
+        catch(\Exception $e){
 
             $result =
                 [
