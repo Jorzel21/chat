@@ -10,7 +10,11 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-                        <input type="hidden" name="id" id="id" value="{{$id}}">
+                        @if(app('request')->input('id'))
+                        <input type="hidden" name="id_invite" id="id_invite" value="{{app('request')->input('id')}}">
+                        @endif
+
+                        <input type="hidden" name="avatar" id="avatar" value="333">
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 

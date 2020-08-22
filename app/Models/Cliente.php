@@ -18,10 +18,4 @@ class Cliente extends Model
         'nome',
     ];
 
-
-    public function usuarios()
-    {
-        return $this->belongsToMany(User::class, 'cliente_user');
-    }
 }
-

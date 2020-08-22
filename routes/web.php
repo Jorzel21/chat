@@ -45,16 +45,15 @@ $router->delete('/departamentos/{departamento}',  'DepartamentoController@destro
 
 Auth::routes();
 
-Route::get('/register/{id}', 'Auth\RegisterController@formRegistrarion')->name('auth.formRegister');
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 
 // ADMIN
 Route::prefix('admin')->group(function () {
     // Matches The "/relatorios/" URL
+    // Route::get('/',                                          'AdminController@index'                                         )->name('admin.index')->middleware('checkAdmin');
     Route::get('/',                                          'AdminController@index'                                         )->name('admin.index');
-    Route::get('/enviarConvite',                             'AdminController@enviarConvite'                                 )->name('admin.enviarConvite');
+    Route::post('/enviarConvite',                             'AdminController@enviarConvite'                                 )->name('admin.enviarConvite');
 
 });
 

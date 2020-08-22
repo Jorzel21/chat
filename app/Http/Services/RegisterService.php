@@ -23,37 +23,42 @@ class RegisterService
     }
 
     public function storeUser($data)
-    {   
-        $user_id = $this->userRepository->store($data);
-        
+    {
+
+        $invite = $this->inviteRepository->find($data['id_invite']);
+
+        $user = $this->userRepository->store($data);
+
+        $this->userClienteRepository->store( ['user_id' => $user->id,
+        'cliente_id' => $invite->cliente_id,
+        'nivel' => $invite->nivel
+       ]);
+        // dd($data, $invite->status, $cliente_id, $user_id);
+        return $user;
+    }
+
+    public function updateUser($data, $id)
+    {
+
+        $user_id = $this->userRepository->update($data, $id);
+        dd('em', $user_id);
         return $user_id;
     }
 
+
     public function updateStatusInvite($id)
-    {   
-        $cliente_id = $this->inviteRepository->updateStatus($id);        
-        
+    {
+        $cliente_id = $this->inviteRepository->updateStatus($id);
+
         return $cliente_id;
-       
+
     }
 
-    public function storeUserCliente($data)
-    {   
-        $user_cliente = $this->userClienteRepository->store($data);
-        
-        return $user_cliente;
-    }
+    public function verficaUsuarioExiste($data)
+    {
+        $invite = $this->inviteRepository->find($data['id_invite']);
 
-    public function verficarStatus($id)
-    {   
-        $status = $this->inviteRepository->verificaStatus($id);
-        
-        if($status){
-            throw new \Exception('Nã é possível criar esse usuário, token já utilizado!');
-        }
-        else{
-            return $status;
-        }
+        $user = $this->userRepository->store($data);
     }
 
 }

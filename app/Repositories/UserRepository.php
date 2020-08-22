@@ -2,22 +2,17 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Facades\Hash;
 use App\User;
 
-class UserRepository{   
+class UserRepository{
 
-    public function store($data){
-        
-        $clienteUser = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-        $clienteUser->save();
+    public function store($request){
 
-        return $clienteUser->id;
-                
+        $user = User::create($request);
+        $user->save();
+
+        return $user;
+
     }
-  
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\RegisterService;
 use App\Models\Invite;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -44,32 +45,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
         $this->registerService = $registerService;
-        
     }
-
-    public function showRegistrationForm()
-    {
-        return redirect()->route('auth.formRegister');
-        //        $franquias = Franquia::select('id', DB::raw('concat(franquias.cidade,"-", franquias.uf) as descricao'))
-        //            ->where('status','=','1')
-        //            ->orderBy('descricao')
-        //            ->pluck('descricao', 'id');
-        //
-        //        return view('auth.register', compact('franquias'));
-    }
-    
-    public function formRegistrarion($id)
-    {
-        try{
-            $this->registerService->verficarStatus($id);
-            return view('auth.register', compact('id'));        
-        }catch(\Exception $e){            
-            flash("erro")->error();
-            return redirect()->route('login');
-        }
-        
-    }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -92,23 +68,8 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {   
-        try{
-            $cliente_id = $this->registerService->updateStatusInvite($data['id']);
-
-            $user       = $this->registerService->storeUser($data);
-    
-            $this->registerService->storeUserCliente([
-                'user_id' => $user->id,
-                'cliente_id' => $cliente_id
-            ]);
-
-            flash('Usuario cadatrado com sucesso.')->success();
-            return $user;
-            
-        }catch(\Exception $e){
-            flash($e->getMessage())->error();
-            return redirect()->back();
-        }
+    {
+        $user = $this->registerService->storeUser($data);
+        return $user;
     }
 }

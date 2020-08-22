@@ -4,42 +4,23 @@ namespace App\Repositories;
 
 use App\Models\Invite;
 
-class InviteRepository{   
+class InviteRepository{
 
     public function store($request){
-        
+
         $invite = Invite::create($request);
         $invite->save();
-        
+
         return $invite->id;
-        
+
     }
 
-    public function updateStatus($id){
-        
+    public function find($id){
+
         $invite = Invite::find($id);
-        if($invite->status){
-            return "Token já utiliado";
-        }else{         
-            $invite->status = true;
-            $invite->save();  
 
-            return $invite->cliente_id;
-        }
-        
-        
+        return $invite;
+
     }
 
-    public function verificaStatus($id){
-        
-        $invite = Invite::find($id);
-        if($invite->status){
-            return true;
-        }else{         
-            return false;
-        }
-        
-        
-    }
-  
 }

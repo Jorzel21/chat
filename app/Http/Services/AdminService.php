@@ -33,7 +33,7 @@ class AdminService
     public function criarInvite(){
         $request = [
             'email' => 'jorzel@beedelivery.com.br',            
-            'cliente_id' => 'acc9376f-a357-47ba-8ed3-aed801770e70',
+            'cliente_id' => '701271b9-c6cf-4262-a8d9-edd1e79cbfb9',
             'nivel' => 'maneger'
         ];
 
