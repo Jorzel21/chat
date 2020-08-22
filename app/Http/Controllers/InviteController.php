@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\AdminService;
 use App\Models\Cliente;
 
-class AdminController extends Controller
+class InviteController extends Controller
 {
 
     protected $requests;   

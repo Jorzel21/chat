@@ -6,6 +6,7 @@ use App\Traits\UuidTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Cliente;
 
 class User extends Authenticatable
 {
@@ -42,4 +43,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function cliente(){
+        return $this->belongsToMany(Cliente::class, 'cliente_user');
+    }
 }

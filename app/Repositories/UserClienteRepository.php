@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Invite;
 
-class InviteRepository{   
+class UserClienteRepository{   
 
     public function store($request){
         
@@ -12,15 +12,6 @@ class InviteRepository{
         $invite->save();
         
         return $invite->id;
-        
-    }
-
-    public function updateStatus($id){
-        
-        $invite = Invite::find($id);
-        
-        $invite->status = true;
-        $invite->save();
         
     }
   

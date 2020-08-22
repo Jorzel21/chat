@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invite;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\InviteRepository;
 
 class RegisterController extends Controller
 {
@@ -36,9 +38,26 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(InviteRepository $inviteRepository)
     {
         $this->middleware('guest');
+        $this->inviteRepository = $inviteRepository;
+    }
+
+    public function showRegistrationForm()
+    {
+        return redirect()->route('auth.formRegister');
+        //        $franquias = Franquia::select('id', DB::raw('concat(franquias.cidade,"-", franquias.uf) as descricao'))
+        //            ->where('status','=','1')
+        //            ->orderBy('descricao')
+        //            ->pluck('descricao', 'id');
+        //
+        //        return view('auth.register', compact('franquias'));
+    }
+    
+    public function formRegistrarion($id)
+    {
+        return view('auth.register', compact('id'));        
     }
 
     /**
@@ -63,11 +82,15 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
-        return User::create([
+    {   
+        $this->inviteRepository->updateStatus($data['id']);
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+     
+        
+        return $user;
     }
 }

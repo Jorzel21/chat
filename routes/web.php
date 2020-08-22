@@ -19,13 +19,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/register/{id}', 'Auth\RegisterController@formRegistrarion')->name('auth.formRegister');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 // ADMIN
 Route::prefix('admin')->group(function () {
     // Matches The "/relatorios/" URL
     Route::get('/',                                          'AdminController@index'                                         )->name('admin.index');
-    Route::get('/enviarConvite',                            'AdminController@enviarConvite'                                 )->name('admin.enviarConvite');
+    Route::get('/enviarConvite',                             'AdminController@enviarConvite'                                 )->name('admin.enviarConvite');
 
 });
 
