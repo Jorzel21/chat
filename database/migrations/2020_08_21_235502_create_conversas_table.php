@@ -16,6 +16,11 @@ class CreateConversasTable extends Migration
         Schema::create('conversas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('canal_id');
+            $table->string('usuario_id');
+            $table->string('usuario_cpf');
+            $table->string('usuario_nome');
+            $table->string('usuario_email');
+            $table->string('agente_id')->nullable();
             $table->string('departamento_id');
             $table->string('departamento_nome');
             $table->enum('status',['aguardando', 'atendimento','transferido','finalizado']);

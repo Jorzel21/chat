@@ -18,12 +18,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/master-create',function(){
+    // ok
+            $user = App\User::create([
+                'name'                  => 'master',
+                'email'                 => 'master@master.com.br',
+                'nivel'                 => 'master',
+                'password'              => Hash::make('chat12345'),
+            ]);
+            $user->save();
+              
+
+            dd("fim", $user);
+
+});
 // Route Clientes
-$router->get('/clientes',                         'ClienteController@index');
-$router->post('/clientes',                        'ClienteController@store');
-$router->get('/clientes/{cliente}',               'ClienteController@show');
-$router->put('/clientes/{cliente}',               'ClienteController@update');
-$router->patch('/clientes/{cliente}',             'ClienteController@update');
+$router->get('/clientes',                         'ClienteController@index')->name('cliente.index');;
+$router->post('/clientes',                        'ClienteController@store')->name('cliente.store');
+$router->get('/clientes/{cliente}',               'ClienteController@edit')->name('cliente.edit');
+$router->put('/clientes/{cliente}',               'ClienteController@update')->name('cliente.update');;
+
 $router->delete('/clientes/{cliente}',            'ClienteController@destroy');
 
 // Route Canais
@@ -53,7 +67,7 @@ Route::prefix('admin')->group(function () {
     // Matches The "/relatorios/" URL
     // Route::get('/',                                          'AdminController@index'                                         )->name('admin.index')->middleware('checkAdmin');
     Route::get('/',                                          'AdminController@index'                                         )->name('admin.index');
-    Route::post('/enviarConvite',                             'AdminController@enviarConvite'                                 )->name('admin.enviarConvite');
+    Route::post('/enviarConvite',                             'AdminController@enviarConvite'                                )->name('admin.enviarConvite');
 
 });
 

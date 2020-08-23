@@ -17,7 +17,7 @@ class CreateInvitesTable extends Migration
             $table->uuid('id')->primary();
             $table->string('email');
             $table->string('cliente_id');
-            $table->enum('nivel', ['admin','maneger','agent']);
+            $table->enum('nivel',['master','admin', 'manager', 'agent']);
             $table->boolean('status')->default(false);
 
             $table->foreign('cliente_id')->references('id')->on('clientes');

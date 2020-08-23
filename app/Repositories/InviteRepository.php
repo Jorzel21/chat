@@ -11,7 +11,7 @@ class InviteRepository{
         $invite = Invite::create($request);
         $invite->save();
         
-        return $invite->id;
+        return $invite;
         
     }  
 
