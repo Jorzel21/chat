@@ -10,6 +10,7 @@
         filled
         v-model="email"
         label="E-mail"
+        name="email"
         lazy-rules
         :rules="[
             val => val && val.length > 0 || 'Preencha o campo',
@@ -21,6 +22,7 @@
         type="password"
         v-model="pass"
         label="Senha"
+        name="password"
         lazy-rules
         :rules="[
             val => val && val.length > 0 || 'Preencha o campo',

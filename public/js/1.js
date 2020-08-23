@@ -47,6 +47,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     route: ""
@@ -91,6 +93,7 @@ var render = function() {
             attrs: {
               filled: "",
               label: "E-mail",
+              name: "email",
               "lazy-rules": "",
               rules: [
                 function(val) {
@@ -112,6 +115,7 @@ var render = function() {
               filled: "",
               type: "password",
               label: "Senha",
+              name: "password",
               "lazy-rules": "",
               rules: [
                 function(val) {
