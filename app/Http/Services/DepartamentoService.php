@@ -48,4 +48,30 @@ class DepartamentoService
 
     }
 
+    public function getAllStatus()
+    {
+
+        $status = $this->departamentoRepository->getStatus();
+
+        return $status;
+
+    }
+
+    public function getDepartamento($id)    {
+
+        $canal = $this->departamentoRepository->getDepartamento($id);
+
+        return $canal;
+
+    }
+
+    public function update($request,$id)
+    {
+        $result = $this->departamentoRepository->update($request, $id);
+
+        return $result;
+
+    }
+
+
 }

@@ -41,7 +41,7 @@
                                     <td class="align-middle text-center"> {{ $item->nome }}</td>
                                     <td class="align-middle text-center"> {{ $item->present()->status }}</td>
                                     <td class="align-middle text-center"> {{ $item->present()->data }}</td>
-                                    <td class="text-right"><a href="{{ route('canal.edit', $item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil"></i></a></td>
+                                    <td class="text-right"><a href="{{ route('canais.edit', $item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil"></i></a></td>
                                 </tr>
                             @endforeach
                             </tbody>

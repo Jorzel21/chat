@@ -10,9 +10,9 @@ class DepartamentoController extends Controller
 
     protected $departamentoService;
 
-    public function __construct (){
+    public function __construct (DepartamentoService $departamentoService){
 
-        $this->departamentoService = new DepartamentoService();
+        $this->departamentoService = $departamentoService;
 
     }
 
@@ -27,8 +27,8 @@ class DepartamentoController extends Controller
         $result = ['status' => 200];
 
         try {
-
-            $result['data'] = $this->departamentoService->getAllDepartamentos();
+           $status        = $this->departamentoService->getAllStatus();
+           $departamentos = $this->departamentoService->getAllDepartamentos();
 
         }catch(\Exception $e){
 
@@ -40,7 +40,7 @@ class DepartamentoController extends Controller
 
         }
 
-        return $result;
+        return view('departamentos.index', compact('departamentos','status'));
     }
 
     /**
@@ -80,7 +80,8 @@ class DepartamentoController extends Controller
 
         }
 
-        return $result;
+        
+        return redirect()->route('departamentos.index');
     }
 
     /**
@@ -102,7 +103,9 @@ class DepartamentoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $departamento = $this->departamentoService->getDepartamento($id);
+        $status = $this->departamentoService->getAllStatus();
+        return view('departamentos.edit', compact('departamento', 'status'));
     }
 
     /**
@@ -114,7 +117,13 @@ class DepartamentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $cliente = $this->departamentoService->update($request,$id);
+        }catch(\Exception $e){
+            flash('Não foi possível atualizar.', $e)->error();
+        }
+
+        return redirect()->route('departamentos.index');
     }
 
     /**

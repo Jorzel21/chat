@@ -10,9 +10,6 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 use Illuminate\Support\Facades\Validator;
-use App\Repositories\InviteRepository;
-use App\Repositories\UserClienteRepository;
-use App\Http\Services\RegisterService;
 
 class RegisterController extends Controller
 {

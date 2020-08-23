@@ -15,7 +15,7 @@
                     </div>
 
                    <div class="row">
-                    {!! Form::open(array('route' => array('canal.update', $canal->id), 'method' => 'PUT')) !!}         
+                    {!! Form::open(array('route' => array('canais.update', $canal->id), 'method' => 'PUT')) !!}         
                     
                     <div class="row">
                         <div class="col-md-12">

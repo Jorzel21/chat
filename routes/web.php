@@ -36,23 +36,23 @@ Route::get('/master-create',function(){
 $router->get('/clientes',                         'ClienteController@index')->name('cliente.index');
 $router->post('/clientes',                        'ClienteController@store')->name('cliente.store');
 $router->get('/clientes/{cliente}',               'ClienteController@edit')->name('cliente.edit');
-$router->put('/clientes/{cliente}',               'ClienteController@update')->name('cliente.update');;
+$router->put('/clientes/{cliente}',               'ClienteController@update')->name('cliente.update');
 
 $router->delete('/clientes/{cliente}',            'ClienteController@destroy');
 
 // Route Canais
-$router->get('/canais',                           'CanalController@index')->name('canais.index');;
-$router->post('/canais',                          'CanalController@store')->name('canais.store');;
-$router->put('/canais/{canal}',                   'CanalController@update')->name('canal.update');;;
-$router->get('/canais/{canal}',                   'CanalController@edit')->name('canal.edit');;
+$router->get('/canais',                           'CanalController@index')->name('canais.index');
+$router->post('/canais',                          'CanalController@store')->name('canais.store');
+$router->put('/canais/{canal}',                   'CanalController@update')->name('canais.update');
+$router->get('/canais/{canal}',                   'CanalController@edit')->name('canais.edit');
 $router->delete('/canais/{canal}',                'CanalController@destroy');
 
 // Route Departamentos
-$router->get('/departamentos',                    'DepartamentoController@index');
-$router->post('/departamentos',                   'DepartamentoController@store');
+$router->get('/departamentos',                    'DepartamentoController@index')->name('departamentos.index');;
+$router->post('/departamentos',                   'DepartamentoController@store')->name('departamentos.store');;
 $router->get('/departamentos/{departamento}',     'DepartamentoController@show');
-$router->put('/departamentos/{departamento}',     'DepartamentoController@update');
-$router->patch('/departamentos/{departamento}',   'DepartamentoController@update');
+$router->put('/departamentos/{departamento}',     'DepartamentoController@update')->name('departamentos.update');;
+$router->get('/departamentos/{departamento}',     'DepartamentoController@edit')->name('departamentos.edit');;
 $router->delete('/departamentos/{departamento}',  'DepartamentoController@destroy');
 
 
