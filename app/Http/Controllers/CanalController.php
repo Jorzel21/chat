@@ -10,9 +10,9 @@ class CanalController extends Controller
 
     protected $canalService;
 
-    public function __construct (){
+    public function __construct (CanalService $canalService){
 
-        $this->canalService = new CanalService();
+        $this->canalService = $canalService;
 
     }
 
@@ -28,7 +28,8 @@ class CanalController extends Controller
 
         try {
 
-            $result['data'] = $this->canalService->getAllCanais();
+            $canais = $this->canalService->getAllCanais();
+            $status = $this->canalService->getAllStatus();
 
         }catch(\Exception $e){
 
@@ -40,7 +41,7 @@ class CanalController extends Controller
 
         }
 
-        return $result;
+        return view('canais.index', compact('canais','status'));
     }
 
     /**
@@ -80,7 +81,7 @@ class CanalController extends Controller
 
         }
 
-        return $result;
+        return redirect()->route('canais.index');
     }
 
     /**
@@ -102,7 +103,9 @@ class CanalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $canal = $this->canalService->getCanal($id);
+        $status = $this->canalService->getAllStatus();
+        return view('canais.edit', compact('canal', 'status'));
     }
 
     /**
@@ -114,7 +117,13 @@ class CanalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $cliente = $this->canalService->update($request,$id);
+        }catch(\Exception $e){
+            flash('Não foi possível atualizar.', $e)->error();
+        }
+
+        return redirect()->route('canais.index');
     }
 
     /**

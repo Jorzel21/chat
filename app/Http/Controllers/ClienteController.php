@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
 
-    protected $clienteService;
+    public $clienteService;
 
     public function __construct (ClienteService $clienteService){
 
@@ -28,7 +28,7 @@ class ClienteController extends Controller
 
         try {
 
-            $result['data'] = $this->clienteService->getAllClientes();
+            $clientes = $this->clienteService->getAllClientes();
 
         }catch(\Exception $e){
 
@@ -40,7 +40,7 @@ class ClienteController extends Controller
 
         }
 
-        return $result;
+        return view('clientes.index', compact('clientes'));
     }
 
     /**
@@ -62,7 +62,7 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
+        
         $result = ['status' => 200];
 
         try {
@@ -79,7 +79,7 @@ class ClienteController extends Controller
 
         }
 
-        return $result;
+        return redirect()->route('cliente.index');
     }
 
     /**
@@ -101,7 +101,8 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cliente = $this->clienteService->getCliente($id);
+        return view('clientes.edit', compact('cliente'));
     }
 
     /**
@@ -113,7 +114,13 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $cliente = $this->clienteService->update($request,$id);
+        }catch(\Exception $e){
+            flash('Não foi possível atualizar.', $e)->error();
+        }
+
+        return redirect()->route('cliente.index');
     }
 
     /**

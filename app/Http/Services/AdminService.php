@@ -9,36 +9,43 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\InviteRepository;
+use App\Repositories\ClienteRepository;
 
 class AdminService
 {   
     public $repository;
     public $inviteRepository;
 
-    public function __construct(InviteRepository $inviteRepository)
+    public function __construct(InviteRepository $inviteRepository, ClienteRepository $clienteRepository)
     {
         $this->inviteRepository = $inviteRepository;
+        $this->clienteRepository = $clienteRepository;
     }
    
 
-    public function enviarConvite($id)
+    public function enviarConvite($invite)
     {
-        Mail::send('emails.index',['id' => $id], function ($m) use ($id) {
-            $m->from('sistema@beedelivery.com.br', 'Your Application');
+        Mail::send('emails.index',['id' => $invite->id], function ($m) use ($invite) {
+            $m->from('sistema@beedelivery.com.br', 'Convite para participar do chat');
 
-            $m->to('jorzelalves@hotmail.com')->subject('Your Reminder!');
+            $m->to($invite->email)->subject('Convite TalkBee - '. $invite->cliente_id);
         });
     }  
 
-    public function criarInvite(){
-        $request = [
-            'email' => 'jorzel@beedelivery.com.br',            
-            'cliente_id' => '701271b9-c6cf-4262-a8d9-edd1e79cbfb9',
-            'nivel' => 'maneger'
+    public function criarInvite($request){
+        
+        $data = [
+            'email' => $request->email,            
+            'cliente_id' => $request->cliente_id,
+            'nivel' => $request->nivel
         ];
 
-        $id_invite = $this->inviteRepository->store($request);
+        $invite = $this->inviteRepository->store($data);
         
-        return $id_invite;
+        return $invite;
+    }
+
+    public function getClientes(){
+        return $this->clienteRepository->getAll();
     }
 }

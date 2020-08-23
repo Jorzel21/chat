@@ -16,6 +16,7 @@ class CreateClientesTable extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nome');
+            $table->string('doc'); 
                        
 
             $table->rememberToken();
