@@ -41,7 +41,7 @@
         name: null,
         age: null,
 
-        accept: false
+        accept: true
       }
     },
 
@@ -68,7 +68,7 @@
       onReset () {
         this.name = null
         this.age = null
-        this.accept = false
+        this.accept = true
       }
     }
   }

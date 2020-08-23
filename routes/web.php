@@ -33,7 +33,7 @@ Route::get('/master-create',function(){
 
 });
 // Route Clientes
-$router->get('/clientes',                         'ClienteController@index')->name('cliente.index');;
+$router->get('/clientes',                         'ClienteController@index')->name('cliente.index');
 $router->post('/clientes',                        'ClienteController@store')->name('cliente.store');
 $router->get('/clientes/{cliente}',               'ClienteController@edit')->name('cliente.edit');
 $router->put('/clientes/{cliente}',               'ClienteController@update')->name('cliente.update');;
@@ -41,11 +41,10 @@ $router->put('/clientes/{cliente}',               'ClienteController@update')->n
 $router->delete('/clientes/{cliente}',            'ClienteController@destroy');
 
 // Route Canais
-$router->get('/canais',                           'CanalController@index');
-$router->post('/canais',                          'CanalController@store');
-$router->get('/canais/{canal}',                   'CanalController@show');
-$router->put('/canais/{canal}',                   'CanalController@update');
-$router->patch('/canais/{canal}',                 'CanalController@update');
+$router->get('/canais',                           'CanalController@index')->name('canais.index');;
+$router->post('/canais',                          'CanalController@store')->name('canais.store');;
+$router->put('/canais/{canal}',                   'CanalController@update')->name('canal.update');;;
+$router->get('/canais/{canal}',                   'CanalController@edit')->name('canal.edit');;
 $router->delete('/canais/{canal}',                'CanalController@destroy');
 
 // Route Departamentos
