@@ -150,28 +150,24 @@ function wrapCsvValue(val, formatFn) {
       "default": function _default() {
         return [];
       }
-    }
-  },
-  data: function data() {
-    return {
-      filter: '',
-      search: false
-    };
-  },
-  computed: {
-    columns: function columns() {
-      return [{
-        name: 'fullName',
-        required: true,
-        label: 'Nome',
-        align: 'left',
-        field: 'fullName',
-        sortable: true
-      }];
+    },
+    columns: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    title: {
+      type: String,
+      "default": 'Lista'
+    },
+    filter: {
+      type: String,
+      "default": ''
     }
   },
   methods: {
-    exportTable: function exportTable(fileName) {
+    exportTable: function exportTable() {
       var _this = this;
 
       // naive encoding to csv format
@@ -182,7 +178,7 @@ function wrapCsvValue(val, formatFn) {
           return wrapCsvValue(typeof col.field === 'function' ? col.field(row) : row[col.field === void 0 ? col.name : col.field], col.format);
         }).join(',');
       })).join('\r\n');
-      var status = Quasar.utils.exportFile("".concat(fileName, "-export-").concat(Date.now(), ".csv"), content, 'text/csv;charset=utf-8');
+      var status = Quasar.utils.exportFile("".concat(this.title, "-export-").concat(Date.now(), ".csv"), content, 'text/csv;charset=utf-8');
 
       if (status !== true) {
         this.$q.notify({
@@ -209,7 +205,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".sticky-hd[data-v-39abd255] {\n  position: -webkit-sticky;\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.my-grid-on[data-v-39abd255] {\n  max-height: calc(100vh - 23px);\n  border-radius: 0px;\n}\n.my-grid-off[data-v-39abd255] {\n  max-height: calc(100vh - 73px);\n}\n.my-table.q-table--loading thead tr:last-child th[data-v-39abd255] {\n  top: 48px;\n}", ""]);
+exports.push([module.i, ".sticky-hd[data-v-39abd255] {\n  position: -webkit-sticky;\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.my-grid-on[data-v-39abd255] {\n  max-height: calc(100vh - 200px);\n  border-radius: 0px;\n}\n.my-grid-off[data-v-39abd255] {\n  max-height: calc(100vh - 200px);\n}\n.my-table.q-table--loading thead tr:last-child th[data-v-39abd255] {\n  top: 48px;\n}", ""]);
 
 // exports
 
@@ -285,219 +281,10 @@ var render = function() {
           "grid-header": "",
           "row-key": "name",
           "no-data-label": "Nenhuma informação disponível",
-          "card-container-class": "q-pt-xs overflow-auto",
+          "card-container-class": "q-pt-sm overflow-auto",
           "card-container-style": "height: 100%;"
         },
         scopedSlots: _vm._u([
-          {
-            key: "top",
-            fn: function() {
-              return [
-                _c(
-                  "div",
-                  { staticClass: "full-width row" },
-                  [
-                    _c(
-                      "q-btn",
-                      {
-                        staticClass: "on-left",
-                        attrs: {
-                          flat: "",
-                          round: "",
-                          dense: "",
-                          icon: "fas fa-arrow-left"
-                        }
-                      },
-                      [_c("q-tooltip", [_vm._v("Voltar")])],
-                      1
-                    ),
-                    _vm._v(" "),
-                    !_vm.search
-                      ? _c("div", { staticClass: "text-h6 col-grow" }, [
-                          _vm._v("Usuários")
-                        ])
-                      : _c("q-input", {
-                          staticClass: "col-grow",
-                          attrs: {
-                            "hide-bottom-space": "",
-                            autofocus: "",
-                            borderless: "",
-                            dense: "",
-                            debounce: "300",
-                            placeholder: "Pesquisar por nome ou email"
-                          },
-                          on: {
-                            keyup: function($event) {
-                              if (
-                                !$event.type.indexOf("key") &&
-                                _vm._k($event.keyCode, "esc", 27, $event.key, [
-                                  "Esc",
-                                  "Escape"
-                                ])
-                              ) {
-                                return null
-                              }
-                              _vm.search = false
-                              _vm.filter = ""
-                            }
-                          },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "prepend",
-                              fn: function() {
-                                return [
-                                  _c("q-icon", {
-                                    attrs: {
-                                      color: "primary",
-                                      name: "fas fa-search"
-                                    }
-                                  })
-                                ]
-                              },
-                              proxy: true
-                            },
-                            {
-                              key: "append",
-                              fn: function() {
-                                return [
-                                  _c(
-                                    "q-btn",
-                                    {
-                                      attrs: {
-                                        color: "primary",
-                                        flat: "",
-                                        round: "",
-                                        dense: "",
-                                        icon: "fas fa-times"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.search = false
-                                          _vm.filter = ""
-                                        }
-                                      }
-                                    },
-                                    [_c("q-tooltip", [_vm._v("Cancelar")])],
-                                    1
-                                  )
-                                ]
-                              },
-                              proxy: true
-                            }
-                          ]),
-                          model: {
-                            value: _vm.filter,
-                            callback: function($$v) {
-                              _vm.filter = $$v
-                            },
-                            expression: "filter"
-                          }
-                        }),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.search,
-                            expression: "!search"
-                          }
-                        ],
-                        staticClass: "q-ml-auto"
-                      },
-                      [
-                        _c(
-                          "q-btn",
-                          {
-                            attrs: {
-                              flat: "",
-                              round: "",
-                              dense: "",
-                              icon: "fas fa-search"
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.search = true
-                              }
-                            }
-                          },
-                          [_c("q-tooltip", [_vm._v("Pesquisar")])],
-                          1
-                        ),
-                        _vm._v(" "),
-                        !_vm.$q.platform.is.mobile
-                          ? _c(
-                              "q-btn",
-                              {
-                                staticClass: "on-right",
-                                attrs: {
-                                  flat: "",
-                                  round: "",
-                                  dense: "",
-                                  icon: "fas fa-redo-alt"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.$emit("reload")
-                                  }
-                                }
-                              },
-                              [_c("q-tooltip", [_vm._v("Recarregar")])],
-                              1
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "q-btn",
-                          {
-                            staticClass: "on-right",
-                            attrs: {
-                              flat: "",
-                              round: "",
-                              dense: "",
-                              icon: "fas fa-download"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.exportTable("lista")
-                              }
-                            }
-                          },
-                          [_c("q-tooltip", [_vm._v("Baixar dados")])],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "q-btn",
-                          {
-                            staticClass: "on-right",
-                            attrs: {
-                              flat: "",
-                              round: "",
-                              dense: "",
-                              icon: "fas fa-user-plus"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.$emit("new")
-                              }
-                            }
-                          },
-                          [_c("q-tooltip", [_vm._v("Novo")])],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]
-            },
-            proxy: true
-          },
           {
             key: "header",
             fn: function(props) {
@@ -565,7 +352,7 @@ var render = function() {
                               flat: "",
                               round: "",
                               dense: "",
-                              color: "accent",
+                              color: "warning",
                               icon: "fas fa-user-edit"
                             },
                             on: {
@@ -675,7 +462,7 @@ var render = function() {
                                   flat: "",
                                   round: "",
                                   dense: "",
-                                  color: "accent",
+                                  color: "warning",
                                   icon: "fas fa-user-edit"
                                 },
                                 on: {

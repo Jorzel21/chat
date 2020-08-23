@@ -7,8 +7,6 @@
         <q-card-section>
             <img src="{{ asset('img/LOGO.png') }}" style="height: 3vw; width: auto"/>
             <login route={{ route('login') }}></login>
-
-            <!-- <list @change-password="event('change', $event)" @edit="event('edit', $event)" @remove="event('remove', $event)" :list="[ {fullName: 'Igor'}, {fullName: 'Arthur'}, {fullName: 'Israel'} ]"></list> -->
         </q-card-section>
       </q-card>
 		</div>
@@ -18,19 +16,6 @@
 
 @section('script')
   <script>
-    new Vue({
-      el: '#app',
-      data: function () {
-        return {
-          drawerState: false
-        }
-      },
-      methods: {
-        event: function (ev) {
-          // Quasar.utils.openURL(url)
-          console.log(ev)
-        }
-      }
-    })
+    new Vue({el: '#app'})
   </script>
 @endsection

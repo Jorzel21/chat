@@ -10,10 +10,10 @@
       row-key="name"
       no-data-label="Nenhuma informação disponível"
       :class="['bg-white text-primary my-table', $q.screen.lt.md ? 'my-grid-on' : 'my-grid-off']"
-      card-container-class="q-pt-xs overflow-auto"
+      card-container-class="q-pt-sm overflow-auto"
       card-container-style="height: 100%;"
     >
-      <template v-slot:top>
+      <!-- <template v-slot:top>
         <div class="full-width row">
           <q-btn class="on-left" flat round dense icon="fas fa-arrow-left">
             <q-tooltip>Voltar</q-tooltip>
@@ -55,7 +55,7 @@
             </q-btn>
           </div>
         </div>
-      </template>
+      </template> -->
       <template v-slot:header="props">
         <q-tr :props="props">
           <q-th
@@ -82,7 +82,7 @@
 <!--             <q-btn @click="$emit('change-password', { ...props.row })" flat round dense color="warning" icon="fas fa-key">
               <q-tooltip>Alterar Senha</q-tooltip>
             </q-btn> -->
-            <q-btn @click="$emit('edit', { ...props.row })" flat round dense color="accent" icon="fas fa-user-edit" class="q-mx-sm">
+            <q-btn @click="$emit('edit', { ...props.row })" flat round dense color="warning" icon="fas fa-user-edit" class="q-mx-sm">
               <q-tooltip>Editar</q-tooltip>
             </q-btn>
             <q-btn @click="$emit('remove', { ...props.row })" flat round dense color="negative" icon="fas fa-user-minus">
@@ -106,7 +106,7 @@
               <!-- <q-btn @click="$emit('change-password', { ...row })" flat round dense color="warning" icon="fas fa-key">
                 <q-tooltip>Alterar Senha</q-tooltip>
               </q-btn> -->
-              <q-btn @click="$emit('edit', { ...row })" flat round dense color="accent" icon="fas fa-user-edit">
+              <q-btn @click="$emit('edit', { ...row })" flat round dense color="warning" icon="fas fa-user-edit">
                 <q-tooltip>Editar</q-tooltip>
               </q-btn>
               <q-btn @click="$emit('remove', { ...row })" flat round dense color="negative" icon="fas fa-user-minus">
@@ -143,29 +143,30 @@ function wrapCsvValue (val, formatFn) {
 
 export default {
   name: 'List',
-
   props: {
     list: {
       type: Array,
-      default() {
+      default: function() {
         return []
       }
+    },
+    columns: {
+      type: Array,
+      default: function() {
+        return []
+      }
+    },
+    title: {
+      type: String,
+      default: 'Lista'
+    },
+    filter: {
+      type: String,
+      default: ''
     }
   },
-  data: () => ({
-    filter: '',
-    search: false
-  }),
-  computed: {
-    columns() {
-      return [
-        { name: 'fullName', required: true, label: 'Nome', align: 'left', field: 'fullName', sortable: true },
-      ]
-    }
-  },
-
   methods: {
-    exportTable(fileName) {
+    exportTable() {
       // naive encoding to csv format
       const content = [ this.columns.map(col => wrapCsvValue(col.label)).join(',') ].concat(
         this.list.map(row => this.columns.map(col => wrapCsvValue(
@@ -177,7 +178,7 @@ export default {
       ).join('\r\n')
 
       const status = Quasar.utils.exportFile(
-        `${fileName}-export-${Date.now()}.csv`,
+        `${this.title}-export-${Date.now()}.csv`,
         content,
         'text/csv;charset=utf-8'
       )
@@ -200,11 +201,11 @@ export default {
   top: 0
 
 .my-grid-on
-  max-height: calc(100vh - 23px)
+  max-height: calc(100vh - 200px)
   border-radius: 0px
 
 .my-grid-off
-  max-height: calc(100vh - 73px)
+  max-height: calc(100vh - 200px)
 
 .my-table
   &.q-table--loading thead tr:last-child th
