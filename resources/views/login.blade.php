@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
+
 @section('content')
-	<q-page>
-		<div class="flex justify-center text-center" style="padding-top: 10vh">
-      <q-card class="my-card">
-        <q-card-section>
-            <img src="{{ asset('img/LOGO.png') }}" style="height: 3vw; width: auto"/>
-            <login route={{ route('login') }}></login>
+        <menu-quasar></menu-quasar>
+        <q-page>
+            <div class="flex justify-center text-center" style="padding-top: 10vh">
+          <q-card class="my-card">
+            <q-card-section>
+                <img src="{{ asset('img/LOGO.png') }}" style="height: 3vw; width: auto"/>
+                <login route={{ route('login') }}></login>
 
-            <!-- <list @change-password="event('change', $event)" @edit="event('edit', $event)" @remove="event('remove', $event)" :list="[ {fullName: 'Igor'}, {fullName: 'Arthur'}, {fullName: 'Israel'} ]"></list> -->
-        </q-card-section>
-      </q-card>
-		</div>
+                <!-- <list @change-password="event('change', $event)" @edit="event('edit', $event)" @remove="event('remove', $event)" :list="[ {fullName: 'Igor'}, {fullName: 'Arthur'}, {fullName: 'Israel'} ]"></list> -->
+            </q-card-section>
+          </q-card>
+            </div>
 
-	</q-page>
+        </q-page>
 @endsection
 
 @section('script')
