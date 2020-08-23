@@ -22,6 +22,9 @@
                     debounce="300"
                     placeholder="Pesquisar"
                 >
+                    <template v-slot:prepend>
+                        <q-icon name="fas fa-search"></q-icon>
+                    </template>
                 </q-input>
             </q-toolbar>
         </div>
