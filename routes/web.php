@@ -18,20 +18,33 @@ Route::get('/', function () {
     return view('login');
 });
 
+Route::get('/master-create',function(){
+    // ok
+            $user = App\User::create([
+                'name'                  => 'master',
+                'email'                 => 'master@master.com.br',
+                'nivel'                 => 'master',
+                'password'              => Hash::make('chat12345'),
+            ]);
+            $user->save();
+              
+
+            dd("fim", $user);
+
+});
 // Route Clientes
-$router->get('/clientes',                         'ClienteController@index');
-$router->post('/clientes',                        'ClienteController@store');
-$router->get('/clientes/{cliente}',               'ClienteController@show');
-$router->put('/clientes/{cliente}',               'ClienteController@update');
-$router->patch('/clientes/{cliente}',             'ClienteController@update');
+$router->get('/clientes',                         'ClienteController@index')->name('cliente.index');
+$router->post('/clientes',                        'ClienteController@store')->name('cliente.store');
+$router->get('/clientes/{cliente}',               'ClienteController@edit')->name('cliente.edit');
+$router->put('/clientes/{cliente}',               'ClienteController@update')->name('cliente.update');;
+
 $router->delete('/clientes/{cliente}',            'ClienteController@destroy');
 
 // Route Canais
-$router->get('/canais',                           'CanalController@index');
-$router->post('/canais',                          'CanalController@store');
-$router->get('/canais/{canal}',                   'CanalController@show');
-$router->put('/canais/{canal}',                   'CanalController@update');
-$router->patch('/canais/{canal}',                 'CanalController@update');
+$router->get('/canais',                           'CanalController@index')->name('canais.index');;
+$router->post('/canais',                          'CanalController@store')->name('canais.store');;
+$router->put('/canais/{canal}',                   'CanalController@update')->name('canal.update');;;
+$router->get('/canais/{canal}',                   'CanalController@edit')->name('canal.edit');;
 $router->delete('/canais/{canal}',                'CanalController@destroy');
 
 // Route Departamentos
@@ -53,7 +66,7 @@ Route::prefix('admin')->group(function () {
     // Matches The "/relatorios/" URL
     // Route::get('/',                                          'AdminController@index'                                         )->name('admin.index')->middleware('checkAdmin');
     Route::get('/',                                          'AdminController@index'                                         )->name('admin.index');
-    Route::post('/enviarConvite',                             'AdminController@enviarConvite'                                 )->name('admin.enviarConvite');
+    Route::post('/enviarConvite',                             'AdminController@enviarConvite'                                )->name('admin.enviarConvite');
 
 });
 

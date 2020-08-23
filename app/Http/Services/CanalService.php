@@ -11,9 +11,9 @@ class CanalService
 {
     public $canalRepository;
 
-    public function __construct()
+    public function __construct(CanalRepository $canalRepository)
     {
-        $this->canalRepository = new CanalRepository();
+        $this->canalRepository = $canalRepository;
     }
 
 
@@ -32,7 +32,7 @@ class CanalService
             throw new InvalidArgumentException($validator->errors()->first());
 
         }
-
+        
         $result = $this->canalRepository->save($data);
 
         return $result;
@@ -43,6 +43,32 @@ class CanalService
     {
 
         $result = $this->canalRepository->getAll();
+
+        return $result;
+
+    }
+
+    public function getAllStatus()
+    {
+
+        $status = $this->canalRepository->getStatus();
+
+        return $status;
+
+    }
+
+
+    public function getCanal($id)    {
+
+        $canal = $this->canalRepository->getCanal($id);
+
+        return $canal;
+
+    }
+
+    public function update($request,$id)
+    {
+        $result = $this->canalRepository->update($request, $id);
 
         return $result;
 

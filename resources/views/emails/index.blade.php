@@ -37,7 +37,7 @@
                             <span style="font-size:20px">
                                 
                             </span>
-                                <a href="http://127.0.0.1:8000/register?id={{$id}}">Aceitar Convite</a>
+                                <a href="http://127.0.0.1:8000/register?id={{ $id }}">Aceitar Convite</a>
                             </td>
                         </tr>
                         <tr style="height:10px"> </tr>

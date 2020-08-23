@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\AdminService;
+use Illuminate\Http\Request;
 use App\Models\Cliente;
 
 use function Ramsey\Uuid\v1;
@@ -19,22 +20,16 @@ class AdminController extends Controller
     }
 
     public function index()
-    {        
-        // $cliente = new Cliente();
-        // $cliente->nome = "Teste";
-
-        // $cliente->save();
-
-        return view('admin.enviarConvite');
-
-        
+    {                
+        $clientes = $this->adminService->getClientes();
+        return view('admin.enviarConvite',compact('clientes'));
     }
 
-    public function enviarConvite($request){
-        dd($request);
-        $id_invite = $this->adminService->criarInvite($request);
+    public function enviarConvite(Request $request){
+        
+        $invite = $this->adminService->criarInvite($request);
 
-        $this->adminService->enviarConvite($id_invite); 
+        $this->adminService->enviarConvite($invite); 
         
     }
     

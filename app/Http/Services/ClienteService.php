@@ -46,4 +46,21 @@ class ClienteService
 
     }
 
+
+    public function getCliente($id)
+    {
+        $result = $this->clienteRepository->find($id);
+
+        return $result;
+
+    }
+
+    public function update($request,$id)
+    {
+        $result = $this->clienteRepository->update($request, $id);
+
+        return $result;
+
+    }
+
 }
